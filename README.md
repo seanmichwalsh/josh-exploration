@@ -11,3 +11,19 @@ However, monorepos have their own pain points:
 - **Permission granularity:** If the organization's method for specifying developer permissions operates at repo-level granularity, a monorepo makes it difficult to limit access control at the project level. Special tooling would need to be introduced to accomplish this.
 
 [Josh](https://josh-project.dev/docs/intro.html) is a Git-compatible version control tool that aims to address some of the above issues with monorepos. It implements a method of Git history filtering that claims to be much faster than existing tools like `git filter-repo`, etc. due to clever use of caching. Faster history filtering allows it to take a monorepo and rewrite its history on the fly in order do things like importing / exporting histories for specific sub-projects, performing partial clones of sub-projects with history local only to said sub-project, etc. This repository serves as an exploration into whether Josh is an appropriate tool to use in a real world production scenario.
+
+## Workflow Walkthrough
+
+### Structuring the Monorepo
+
+### Repo vs Project Level Development
+
+### Importing Third-Party Projects
+
+### Repo vs Project Level Branch Management
+
+### Workspaces and Shared Dependencies
+
+### Cross-Project Breaking Changes
+
+### Interfacing with Upstream
