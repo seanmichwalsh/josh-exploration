@@ -12,9 +12,27 @@ However, monorepos have their own pain points:
 
 [Josh](https://josh-project.dev/docs/intro.html) is a Git-compatible version control tool that aims to address some of the above issues with monorepos. It implements a method of Git history filtering that claims to be much faster than existing tools like `git filter-repo`, etc. due to clever use of caching. Faster history filtering allows it to take a monorepo and rewrite its history on the fly in order do things like importing / exporting histories for specific sub-projects, performing partial clones of sub-projects with history local only to said sub-project, etc. This repository serves as an exploration into whether Josh is an appropriate tool to use in a real world production scenario.
 
-## Workflow Walkthrough
+## Josh Workflow Walkthrough
 
 ### Structuring the Monorepo
+First, let's define the layout of a toy monorepo to be managed using Josh. Let's say this repo will be shared between multiple hardware and software teams: hardware engineers will implement and validate RTL, while software engineers will reflect these designs in simulation and write libraries to be run on said simulators.
+
+Let's divide the monorepo into the below hierarchy of subprojects based on project classification:
+```
+.
+├── hardware
+│   ├── csrs
+│   └── rtl
+└── software
+    ├── external
+    └── internal
+```
+
+We'll create a top-level split between hardware vs software projects. The `hardware` directory will be further subdivided into both an `rtl` subdirectory (containing subprojects that implement HW designs via System Verilog) and a `csr` subdirectory (containing subprojects that package SW-consumable definitions of CSR layouts derived from System Verilog files in the `rtl` directory).
+
+The `software` directory will be subdivded into `internal` and `external` subdirectories, containing projects that are either original to the organization or vendored from an upstream source, respectively.
+
+Note that Josh is not involved in this setup process: we create and upload the initial setup commits for the monorepo entirely with Git.
 
 ### Repo vs Project Level Development
 
